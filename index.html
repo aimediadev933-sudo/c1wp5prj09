@@ -1,1 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech-Culture Fusion Platform | WP5 Project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --primary-color: #EF5350;
+            --secondary-color: #FF7043;
+            --body-color: #F8F3F0;
+            --text-color: #1D1D1B;
+            --secondary-dark: #9C3A26;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--body-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 1rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+        }
+
+        .logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            height: 60px;
+            width: auto;
+            background: var(--white);
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .hero-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .meta-item {
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            background: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem 0;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary-color);
+            border-radius: 2px;
+        }
+
+        /* Countries Grid */
+        .countries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .country-card {
+            background: linear-gradient(135deg, var(--body-color), var(--white));
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 2px solid var(--secondary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .country-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(239, 83, 80, 0.2);
+        }
+
+        .country-name {
+            font-weight: bold;
+            color: var(--secondary-dark);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Activities Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 1rem;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--secondary-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            background: var(--body-color);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3rem;
+            top: 1.5rem;
+            width: 15px;
+            height: 15px;
+            background: var(--primary-color);
+            border: 3px solid var(--white);
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px var(--primary-color);
+        }
+
+        .timeline-date {
+            color: var(--secondary-dark);
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Key Outcomes */
+        .outcomes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .outcome-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .outcome-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+
+        .outcome-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        /* Challenges */
+        .challenges-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .challenge-item {
+            background: var(--body-color);
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 0 10px 10px 0;
+            transition: all 0.3s ease;
+        }
+
+        .challenge-item:hover {
+            transform: translateX(10px);
+            box-shadow: -5px 5px 15px rgba(239, 83, 80, 0.2);
+        }
+
+        .challenge-title {
+            color: var(--secondary-dark);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* SDGs */
+        .sdgs {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .sdg-item {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-weight: bold;
+            text-align: center;
+            min-width: 200px;
+            transition: transform 0.3s ease;
+        }
+
+        .sdg-item:hover {
+            transform: scale(1.05);
+            background: var(--secondary-dark);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .logos {
+                gap: 1rem;
+            }
+
+            .logo {
+                height: 40px;
+            }
+
+            .nav-menu {
+                gap: 1rem;
+            }
+
+            .nav-menu a {
+                padding: 0.3rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .timeline {
+                padding-left: 1rem;
+            }
+
+            .timeline-item {
+                margin-left: 1rem;
+            }
+
+            .timeline-item::before {
+                left: -2rem;
+            }
+
+            .project-meta {
+                gap: 1rem;
+            }
+
+            .meta-item {
+                padding: 0.3rem 0.8rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero-title {
+                font-size: 1.5rem;
+            }
+
+            .logos {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .countries-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .outcomes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sdgs {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logos">
+                <img src="images/logos/eu-logo.png" alt="European Union" class="logo">
+                <img src="images/logos/asia-connect-logo.png" alt="Asia Connect" class="logo">
+                <img src="images/logos/tein-logo.png" alt="TEIN Cooperation Center" class="logo">
+            </div>
+            <h1 class="hero-title">Tech-Culture Fusion Platform</h1>
+            <p class="hero-subtitle">Training Programs for TEIN-Connected Beneficiary Countries</p>
+            <div class="project-meta">
+                <div class="meta-item">WP5 Project</div>
+                <div class="meta-item">1st Call</div>
+                <div class="meta-item">22 Months</div>
+                <div class="meta-item">6 Countries</div>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <ul class="nav-menu">
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#countries">Countries</a></li>
+                    <li><a href="#activities">Activities</a></li>
+                    <li><a href="#outcomes">Outcomes</a></li>
+                    <li><a href="#challenges">Challenges</a></li>
+                    <li><a href="#future">Future</a></li>
+                    <li><a href="#sdgs">SDGs</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section id="overview" class="section">
+            <h2 class="section-title">Project Overview</h2>
+            <p>This innovative project, conducted under WP5 of the Asi@Connect initiative, successfully developed a tech-culture fusion platform across six countries—Bangladesh, India, Malaysia, Pakistan, Vietnam, and South Korea. Over 22 months, it facilitated workshops, training programs, symposia, and cyber performances through APAN meetings and regional events.</p>
+            <p>Using cutting-edge tools like UltraGrid, JackAudio, Syphon, and JackTrip, the project enabled multi-point live collaborations among artists, engineers, and technicians across borders. This groundbreaking initiative demonstrated how advanced research networks can be leveraged for artistic and cultural innovation, offering a sustainable model for continued digital culture engagement and educational outreach.</p>
+        </section>
+
+        <section id="countries" class="section">
+            <h2 class="section-title">Participating Countries & Organizations</h2>
+            <div class="countries-grid">
+                <div class="country-card">
+                    <div class="country-name">🇧🇩 Bangladesh</div>
+                    <p><strong>Partner:</strong> BdREN</p>
+                    <p><strong>Role:</strong> Beneficiary Country</p>
+                </div>
+                <div class="country-card">
+                    <div class="country-name">🇮🇳 India</div>
+                    <p><strong>Partner:</strong> ERNET</p>
+                    <p><strong>Role:</strong> Beneficiary Country</p>
+                </div>
+                <div class="country-card">
+                    <div class="country-name">🇲🇾 Malaysia</div>
+                    <p><strong>Partner:</strong> MYREN</p>
+                    <p><strong>Role:</strong> Beneficiary Country</p>
+                </div>
+                <div class="country-card">
+                    <div class="country-name">🇵🇰 Pakistan</div>
+                    <p><strong>Partner:</strong> PERN</p>
+                    <p><strong>Role:</strong> Beneficiary Country</p>
+                </div>
+                <div class="country-card">
+                    <div class="country-name">🇻🇳 Vietnam</div>
+                    <p><strong>Partner:</strong> VinaREN</p>
+                    <p><strong>Role:</strong> Beneficiary Country</p>
+                </div>
+                <div class="country-card">
+                    <div class="country-name">🇰🇷 South Korea</div>
+                    <p><strong>Partner:</strong> NEXT Inc.</p>
+                    <p><strong>Role:</strong> Lead Partner</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="activities" class="section">
+            <h2 class="section-title">Key Activities Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">August 2017</div>
+                    <div class="timeline-title">CP System Operation Training</div>
+                    <p>Focused on real-time audio-visual transmission using UltraGrid and JackAudio. Engineers and artists learned to set up cyber performance systems and manage cross-network AV flows.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">December 2017</div>
+                    <div class="timeline-title">1st Tech-Culture Fusion Workshop & Live CP</div>
+                    <p>A 3-point live cyber performance connecting Vietnam, India, and Pakistan. Participants tackled latency, stage synchronization, and eye-contact challenges while showcasing cultural pieces.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">March 2018</div>
+                    <div class="timeline-title">JackTrip Training Program</div>
+                    <p>Emphasized real-time audio synchronization and delay reduction. Held in Singapore during APAN45, improving confidence in cyber performance sound systems.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">July 2018</div>
+                    <div class="timeline-title">Tech-Cultural Exchange Symposium</div>
+                    <p>Two-day event in Dhaka addressing fusion trends and practical challenges. Featured live collaborative performances between Bangladeshi and Korean artists, streamed on YouTube.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">August 2018</div>
+                    <div class="timeline-title">Syphon & Arena Training</div>
+                    <p>Hands-on exploration of multi-point CPs using Syphon for image sharing and Arena for video mixing. Advanced visual composition tools across remote sites.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">February 2019</div>
+                    <div class="timeline-title">Final Cyber Performance "dQ19"</div>
+                    <p>Spectacular 6-country synchronized show featuring BD, PK, IN, MY, VN, and KR. Large-scale collaborative performance using VLAN with 5.1 surround audio and real-time visual synthesis.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="outcomes" class="section">
+            <h2 class="section-title">Key Outcomes</h2>
+            <div class="outcomes-grid">
+                <div class="outcome-card">
+                    <div class="outcome-title">Cyber Performance Curriculum</div>
+                    <p>Established structured training modules using UltraGrid, JackAudio, Syphon, and Arena, enabling effective collaboration between engineers, technicians, and artists.</p>
+                </div>
+                <div class="outcome-card">
+                    <div class="outcome-title">Multinational Performances</div>
+                    <p>Successfully conducted cross-border live performances demonstrating technical and artistic coordination with synchronized audiovisual transmission over TEIN.</p>
+                </div>
+                <div class="outcome-card">
+                    <div class="outcome-title">Empowered NRENs</div>
+                    <p>Participating networks gained skills and resources to independently plan, operate, and innovate in cyber performance practices across regional cultural ecosystems.</p>
+                </div>
+                <div class="outcome-card">
+                    <div class="outcome-title">Cross-disciplinary Collaboration</div>
+                    <p>Bridged gaps between technical experts and performing artists, promoting mutual understanding and teamwork for high-quality cyber performances.</p>
+                </div>
+                <div class="outcome-card">
+                    <div class="outcome-title">Global Knowledge Exchange</div>
+                    <p>Live-streamed and documented events enabled global participation, knowledge sharing, and enhanced cultural footprint of participating nations.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="challenges" class="section">
+            <h2 class="section-title">Challenges & Gaps</h2>
+            <div class="challenges-list">
+                <div class="challenge-item">
+                    <div class="challenge-title">Latency and Synchronization Issues</div>
+                    <p>Real-time collaboration was challenged by audio-visual delays across network nodes, especially in low-bandwidth regions, requiring extensive testing and configuration.</p>
+                </div>
+                <div class="challenge-item">
+                    <div class="challenge-title">Bandwidth Limitations</div>
+                    <p>Regions with weak network infrastructure experienced limited streaming quality and connectivity disruptions, affecting performance consistency and audience engagement.</p>
+                </div>
+                <div class="challenge-item">
+                    <div class="challenge-title">Technical Learning Curve</div>
+                    <p>Many participants lacked prior exposure to cyber performance tools, necessitating extended hands-on training sessions and technical guidance.</p>
+                </div>
+                <div class="challenge-item">
+                    <div class="challenge-title">Scalability Constraints</div>
+                    <p>Engaging all TEIN member countries equally proved difficult due to differing resource levels, technical readiness, and scheduling constraints.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="future" class="section">
+            <h2 class="section-title">Future Directions</h2>
+            <p><strong>Global Scaling:</strong> Plans include integrating European and American partners into larger-scale CP events, creating intercontinental collaborations and enhancing global reach.</p>
+            <p><strong>Permanent Platform:</strong> Development of a lasting digital platform with training resources, archived content, and scheduling systems for continuous collaboration.</p>
+            <p><strong>Advanced Technology:</strong> Introduction of IoT, real-time sensors, and higher-resolution AV tools (4K/8K) to increase immersion and enhance artistic expression.</p>
+            <p><strong>Content Archives:</strong> Creating and preserving multimedia archives of performances and training resources for education, cultural documentation, and future project continuity.</p>
+        </section>
+
+        <section id="sdgs" class="section">
+            <h2 class="section-title">Relevant Sustainable Development Goals</h2>
+            <div class="sdgs">
+                <div class="sdg-item">
+                    <div>SDG 4</div>
+                    <div>Quality Education</div>
+                </div>
+                <div class="sdg-item">
+                    <div>SDG 9</div>
+                    <div>Industry, Innovation & Infrastructure</div>
+                </div>
+                <div class="sdg-item">
+                    <div>SDG 17</div>
+                    <div>Partnerships for the Goals</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Tech-Culture Fusion Platform | WP5 Project | Asi@Connect Initiative</p>
+            <p>Fostering digital cultural collaboration across Asia through advanced research networks</p>
+        </div>
+    </footer>
+</body>
+</html>
